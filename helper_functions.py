@@ -286,3 +286,14 @@ def calculate_results(y_true, y_pred):
                   "recall": model_recall,
                   "f1": model_f1}
   return model_results
+
+# Set model checkpoint savepoint
+def create_model_checkpoint(filename):
+   checkpoint_path = ("filename"+"/checkpoint.weights.h5")
+
+   model_checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+      save_weights_only = True,
+      save_best_only = True,
+      save_freq = "epoch",
+      verbose = 1)
+   return model_checkpoint 
