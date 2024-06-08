@@ -288,12 +288,14 @@ def calculate_results(y_true, y_pred):
   return model_results
 
 # Set model checkpoint savepoint
-def create_model_checkpoint(filename):
-   checkpoint_path = ("filename"+"/checkpoint.weights.h5")
+def create_model_checkpoint(checkpoint_path):
+   #checkpoint_path = ("Food101_10prct_weights/checkpoint.weights.h5")
 
-   model_checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
-      save_weights_only = True,
-      save_best_only = True,
-      save_freq = "epoch",
-      verbose = 1)
+# Set checkpoint savepoint
+   model_checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_path,
+      monitor = 'val_acc',
+      save_weights_only = True,
+      save_best_only = True,
+      save_freq = "epoch",
+      verbose = 1)
    return model_checkpoint 
