@@ -294,7 +294,7 @@ def create_model_checkpoint(checkpoint_path):
 # Set checkpoint savepoint
    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_path,
       monitor = 'val_accuracy',
-      save_weights_only = True,
+      save_weights_only = False,
       save_best_only = True,
       save_freq = "epoch",
       verbose = 1)
