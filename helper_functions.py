@@ -301,7 +301,7 @@ def create_model_checkpoint(checkpoint_path):
    return model_checkpoint 
 
 # Create base model
-def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
+def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
                       output_shape: int = 101,
                       learning_rate: float = 0.001,
                       training: bool = False,
