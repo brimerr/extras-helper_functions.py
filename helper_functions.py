@@ -319,8 +319,8 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
     - tf.keras.Model: The compiled model with specified input and output settings.
     """
     # Create base model
-    base_model = keras.applications.efficientnet_v2.EfficientNetV2B0(include_top=False)
-    base_model.trainable = training
+    base_model=keras.applications.efficientnet_v2.EfficientNetV2B0(include_top=False)
+    base_model.trainable=training
 
     if training == True:
       print("Training is set to True")
