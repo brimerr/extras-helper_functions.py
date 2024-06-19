@@ -330,12 +330,12 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
       print("Training is set to False")
 
     # Setup model input and outputs with data augmentation built-in
-    inputs = layers.Input(shape=input_shape, name="input_layer")
-    x = data_aug(inputs)
-    x = base_model(x, training=False)  # pass augmented images to base model but keep it in inference mode
-    x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
-    outputs = layers.Dense(units=output_shape, activation="softmax", name="output_layer")(x)
-    model = tf.keras.Model(inputs, outputs)
+    inputs = layers.Input(shape=input_shape,name="input_layer")
+    x = data_aug(inputs)
+    x = base_model(x,training=False) # pass augmented images to base model but keep it in inference mode
+    x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
+    outputs = layers.Dense(units=output_shape,activation="softmax",name="output_layer")(x)
+    model = tf.keras.Model(inputs,outputs)
 
     # Compile model
     model.compile(loss="categorical_crossentropy",
