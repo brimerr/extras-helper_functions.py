@@ -324,11 +324,11 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
 
     if training == True:
       print("Training is set to True")
-      for layer in base_model.layers[:-(set_top_num)]:
-        layer.trainable = False
+      for layer in base_model.layers[:-(set_top_num)]:
+        layer.trainable = False
     else:
       print("Training is set to False")
-      
+
     # Setup model input and outputs with data augmentation built-in
     inputs = layers.Input(shape=input_shape, name="input_layer")
     x = data_aug(inputs)
