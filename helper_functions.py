@@ -302,10 +302,10 @@ def create_model_checkpoint(checkpoint_path):
 
 # Create base model
 def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
-                      output_shape:int=101,
-                      learning_rate:float=0.001,
-                      training:bool=False,
-                      set_top_num:int=0,)->tf.keras.Model:
+       output_shape:int=101,
+       learning_rate:float=0.001,
+       training:bool=False,
+       set_top_num:int=0,) -> tf.keras.Model:
     """
     Create a model based on EfficientNetV2B0 with built-in data augmentation.
 
