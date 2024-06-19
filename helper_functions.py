@@ -301,11 +301,11 @@ def create_model_checkpoint(checkpoint_path):
    return model_checkpoint 
 
 # Create base model
-def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
-                      output_shape: int = 101,
-                      learning_rate: float = 0.001,
-                      training: bool = False,
-                      set_top_num: int = 0,) -> tf.keras.Model:
+def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
+                      output_shape: int = 101,
+                      learning_rate: float = 0.001,
+                      training: bool = False,
+                      set_top_num: int = 0,) -> tf.keras.Model:
     """
     Create a model based on EfficientNetV2B0 with built-in data augmentation.
 
@@ -323,24 +323,24 @@ def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
     base_model = keras.applications.efficientnet_v2.EfficientNetV2B0(include_top=False)
     base_model.trainable = training
 
-    if training == True:
-       print("Training is set to True")
-       for layer in base_model.layers[:-(set_top_num)]:
-          layer.trainable = False
-    else:
-       print("Training is set to False")
-
+    if training == True:
+      print("Training is set to True")
+      for layer in base_model.layers[:-(set_top_num)]:
+        layer.trainable = False
+    else:
+      print("Training is set to False")
+      
     # Setup model input and outputs with data augmentation built-in
-    inputs = layers.Input(shape=input_shape, name="input_layer")
-    x = data_aug(inputs)
-    x = base_model(x, training=False)  # pass augmented images to base model but keep it in inference mode
-    x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
-    outputs = layers.Dense(units=output_shape, activation="softmax", name="output_layer")(x)
-    model = tf.keras.Model(inputs, outputs)
+    inputs = layers.Input(shape=input_shape, name="input_layer")
+    x = data_aug(inputs)
+    x = base_model(x, training=False)  # pass augmented images to base model but keep it in inference mode
+    x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
+    outputs = layers.Dense(units=output_shape, activation="softmax", name="output_layer")(x)
+    model = tf.keras.Model(inputs, outputs)
 
     # Compile model
-    model.compile(loss="categorical_crossentropy",
-                  optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-                  metrics=["accuracy"])
+    model.compile(loss="categorical_crossentropy",
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
+                  metrics=["accuracy"])
 
-    return model
+    return model
