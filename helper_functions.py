@@ -299,3 +299,48 @@ def create_model_checkpoint(checkpoint_path):
       save_freq = "epoch",
       verbose = 1)
    return model_checkpoint 
+
+# Create base model
+def create_base_model(input_shape: tuple[int, int, int] = (224, 224, 3),
+                      output_shape: int = 101,
+                      learning_rate: float = 0.001,
+                      training: bool = False,
+                      set_top_num: int = 0,) -> tf.keras.Model:
+    """
+    Create a model based on EfficientNetV2B0 with built-in data augmentation.
+
+    Parameters:
+    - input_shape (tuple): Expected shape of input images. Default is (224, 224, 3).
+    - output_shape (int): Number of classes for the output layer. Default is 10.
+    - learning_rate (float): Learning rate for the Adam optimizer. Default is 0.001.
+    - training (bool): Whether the base model is trainable. Default is False.
+
+    Returns:
+    - tf.keras.Model: The compiled model with specified input and output settings.
+    """
+
+    # Create base model
+    base_model = keras.applications.efficientnet_v2.EfficientNetV2B0(include_top=False)
+    base_model.trainable = training
+
+    if training == True:
+       print("Training is set to True")
+       for layer in base_model.layers[:-(set_top_num)]:
+          layer.trainable = False
+    else:
+       print("Training is set to False")
+
+    # Setup model input and outputs with data augmentation built-in
+    inputs = layers.Input(shape=input_shape, name="input_layer")
+    x = data_aug(inputs)
+    x = base_model(x, training=False)  # pass augmented images to base model but keep it in inference mode
+    x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
+    outputs = layers.Dense(units=output_shape, activation="softmax", name="output_layer")(x)
+    model = tf.keras.Model(inputs, outputs)
+
+    # Compile model
+    model.compile(loss="categorical_crossentropy",
+                  optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
+                  metrics=["accuracy"])
+
+    return model
