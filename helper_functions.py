@@ -336,10 +336,10 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
     x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
     outputs = layers.Dense(units=output_shape,activation="softmax",name="output_layer")(x)
     model = tf.keras.Model(inputs,outputs)
-
-    # Compile model
+         
+    # Compile model
     model.compile(loss="categorical_crossentropy",
-                  optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-                  metrics=["accuracy"])
-
+       optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
+       metrics=["accuracy"])
+         
     return model
