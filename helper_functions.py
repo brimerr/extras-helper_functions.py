@@ -342,4 +342,4 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
        optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
        metrics=["accuracy"])
          
-    return model
+    return model
