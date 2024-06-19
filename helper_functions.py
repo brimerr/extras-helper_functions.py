@@ -318,8 +318,7 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
     Returns:
     - tf.keras.Model: The compiled model with specified input and output settings.
     """
-                        
-    # Create base model
+    # Create base model
     base_model = keras.applications.efficientnet_v2.EfficientNetV2B0(include_top=False)
     base_model.trainable = training
 
@@ -330,7 +329,7 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
     else:
       print("Training is set to False")
       
-    # Setup model input and outputs with data augmentation built-in
+    # Setup model input and outputs with data augmentation built-in
     inputs = layers.Input(shape=input_shape, name="input_layer")
     x = data_aug(inputs)
     x = base_model(x, training=False)  # pass augmented images to base model but keep it in inference mode
