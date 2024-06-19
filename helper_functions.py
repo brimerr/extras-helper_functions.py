@@ -300,9 +300,10 @@ def create_model_checkpoint(checkpoint_path):
       verbose = 1)
    return model_checkpoint 
 
-# Create base model
 from tensorflow import keras
+from tensorflow.keras import layers
 
+# Create base model
 def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
        output_shape:int=101,
        learning_rate:float=0.001,
