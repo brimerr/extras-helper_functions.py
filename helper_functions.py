@@ -333,8 +333,8 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
       print("Training is set to False")
 
 
-   # data augmentation set
-   data_aug = keras.Sequential([
+    # data augmentation set
+    data_aug = keras.Sequential([
       layers.RandomFlip("horizontal"),
       layers.RandomZoom(0.2),
       layers.RandomRotation(0.2),
