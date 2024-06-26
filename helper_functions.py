@@ -307,6 +307,7 @@ from tensorflow.keras import layers
 def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
        output_shape:int=101,
        learning_rate:float=0.001,
+       aug:bool=False,                 
        training:bool=False,
        set_top_num:int=0,) -> tf.keras.Model:
     """
@@ -345,7 +346,10 @@ def create_base_model(input_shape:tuple[int,int,int]=(224,224,3),
 
     # Setup model input and outputs with data augmentation built-in
     inputs = layers.Input(shape=input_shape,name="input_layer")
-    x = data_aug(inputs)
+    if aug == True:
+       x = data_aug(inputs)
+    else:
+       x = inputs
     x = base_model(x,training=False) # pass augmented images to base model but keep it in inference mode
     x = layers.GlobalAveragePooling2D(name="global_average_pooling_layer")(x)
     outputs = layers.Dense(units=output_shape,activation="softmax",name="output_layer")(x)
